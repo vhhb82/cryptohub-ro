@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../../../contentlayer.config.ts"],
+  "sourcesContent": ["import { defineDocumentType, makeSource } from \"contentlayer/source-files\";\r\n\r\nexport const News = defineDocumentType(() => ({\r\n  name: \"News\",\r\n  filePathPattern: `news/**/*.mdx`,\r\n  contentType: \"mdx\",\r\n  fields: {\r\n    title: { type: \"string\", required: true },\r\n    date:  { type: \"date\",   required: true },\r\n    source:{ type: \"string\" },\r\n    externalUrl: { type: \"string\" },\r\n    cover: { type: \"string\" },\r\n    tags:  { type: \"list\", of: { type: \"string\" } },\r\n  },\r\n  computedFields: {\r\n    slug: {\r\n      type: \"string\",\r\n      resolve: (doc) => doc._raw.flattenedPath.replace(/^news\\//, \"\"),\r\n    },\r\n  },\r\n}));\r\n\r\nexport default makeSource({\r\n  contentDirPath: \"content\",\r\n  documentTypes: [News],\r\n});\r\n"],
+  "mappings": ";AAAA,SAAS,oBAAoB,kBAAkB;AAExC,IAAM,OAAO,mBAAmB,OAAO;AAAA,EAC5C,MAAM;AAAA,EACN,iBAAiB;AAAA,EACjB,aAAa;AAAA,EACb,QAAQ;AAAA,IACN,OAAO,EAAE,MAAM,UAAU,UAAU,KAAK;AAAA,IACxC,MAAO,EAAE,MAAM,QAAU,UAAU,KAAK;AAAA,IACxC,QAAO,EAAE,MAAM,SAAS;AAAA,IACxB,aAAa,EAAE,MAAM,SAAS;AAAA,IAC9B,OAAO,EAAE,MAAM,SAAS;AAAA,IACxB,MAAO,EAAE,MAAM,QAAQ,IAAI,EAAE,MAAM,SAAS,EAAE;AAAA,EAChD;AAAA,EACA,gBAAgB;AAAA,IACd,MAAM;AAAA,MACJ,MAAM;AAAA,MACN,SAAS,CAAC,QAAQ,IAAI,KAAK,cAAc,QAAQ,WAAW,EAAE;AAAA,IAChE;AAAA,EACF;AACF,EAAE;AAEF,IAAO,8BAAQ,WAAW;AAAA,EACxB,gBAAgB;AAAA,EAChB,eAAe,CAAC,IAAI;AACtB,CAAC;",
+  "names": []
+}
