@@ -1,45 +1,7 @@
-{
-  "name": "cryptohub-ro",
-  "version": "0.1.0",
-  "private": true,
-  "type": "module",
-  "scripts": {
+{"scripts": {
     "dev": "next dev",
-    "build": "contentlayer build && next build",
+    "build": "contentlayer2 build && next build",
     "start": "next start",
-    "lint": "eslint",
-    "new:post": "tsx scripts/new-post.ts",
-    "import:news": "tsx scripts/import-cryptopanic.ts",
-    "import:rss": "tsx scripts/import-rss.ts",
-    "new:url": "tsx scripts/new-from-url.ts",
-    "seed:blob": "tsx -r dotenv/config scripts/seed-blob.ts"
-  },
-  "dependencies": {
-    "@mdxeditor/editor": "^3.46.1",
-    "@vercel/blob": "^2.0.0",
-    "next": "15.5.4",
-    "next-contentlayer2": "0.5.8",
-    "react": "19.1.0",
-    "react-dom": "19.1.0",
-    "zod": "^4.1.11"
-  },
-  "devDependencies": {
-    "@eslint/eslintrc": "^3",
-    "@tailwindcss/postcss": "^4",
-    "@types/node": "^20.19.17",
-    "@types/react": "^19.1.14",
-    "@types/react-dom": "^19.1.9",
-    "contentlayer": "0.3.4",
-    "dotenv": "^17.2.2",
-    "eslint": "^9",
-    "eslint-config-next": "15.5.4",
-    "rehype": "^13.0.2",
-    "remark": "^15.0.1",
-    "rss-parser": "^3.13.0",
-    "tailwindcss": "^4",
-    "ts-node": "^10.9.2",
-    "tsconfig-paths": "^4.2.0",
-    "tsx": "^4.20.6",
-    "typescript": "^5.9.2"
-  }
-}
+    "content": "contentlayer2 build",
+    "lint": "next lint"
+  },"dependencies":{"contentlayer2":"^0.5.8","next":"15.5.4","next-contentlayer2":"0.5.8","react":"19.1.0","react-dom":"19.1.0","zod":"^4.1.11"},"devDependencies":{"@eslint/eslintrc":"^3","@tailwindcss/postcss":"^4","@types/node":"^20.19.17","@types/react":"^19.1.9","dotenv":"^17.2.2","eslint":"^9","eslint-config-next":"15.5.4","rehype":"^13.0.2","remark":"^15.0.1","rss-parser":"^3.13.0","tailwindcss":"^4","ts-node":"^10.9.2","tsconfig-paths":"^4.2.0","tsx":"^4.20.6","typescript":"^5.9.2"},"overrides":{"next-contentlayer":"npm:next-contentlayer2@^0.5.0"}}

@@ -1,12 +1,7 @@
 // next.config.ts
+import type { NextConfig } from "next"
 import { withContentlayer } from "next-contentlayer2";
-
-/** @type {import('next').NextConfig} */
-const nextConfig = {
-  // necesar ca editorul să meargă în Next (SSR/build)
-  transpilePackages: ["@mdxeditor/editor"],
-
-  // permite imaginile externe (cover) din sursele tale
+const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
       { protocol: "https", hostname: "**.coindesk.com" },
