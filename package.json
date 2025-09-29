@@ -10,6 +10,7 @@
     "@tailwindcss/postcss": "^4.1.13",
     "@types/node": "^20.19.17",
     "@types/react": "^19.1.9",
+    "autoprefixer": "^10.4.21",
     "contentlayer2": "0.5.8",
     "dotenv": "^17.2.2",
     "eslint": "^9",
@@ -21,7 +22,10 @@
     "typescript": "^5.9.2"
   },
   "dependencies": {
+    "@vercel/blob": "^0.24.1",
+    "contentlayer2": "^0.5.8",
     "next": "15.5.4",
+    "next-contentlayer2": "^0.5.8",
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "zod": "^4.1.11"
