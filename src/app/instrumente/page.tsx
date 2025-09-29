@@ -1,61 +1,45 @@
-import instruments from "@/data/instruments.json";
-
-async function getInstruments() {
-  const url = process.env.NEXT_PUBLIC_INSTRUMENTS_URL; // seteaz-o în .env și în Vercel
-  if (!url) return [];
-  const res = await fetch(url, { next: { revalidate: 30 } }); // revalidare la 30s
-  if (!res.ok) return [];
-  return (await res.json()) as {
-    rank?: number;
-    name: string;
-    referralUrl: string;
-    description?: string;
-    bonus?: string;
-    tags?: string[];
-    logo?: string;
-  }[];
-}
-
-// 2) Pagina ca Server Component
-async function getInstruments() {
-  const url = process.env.NEXT_PUBLIC_INSTRUMENTS_URL;
-  if (!url) return [];
-  const res = await fetch(url, { next: { revalidate: 30 } });
-  if (!res.ok) return [];
-  return (await res.json()) as Instrument[];
-}
+import { getInstruments } from "@/lib/instrumente";
 
 export default async function InstrumentsPage() {
-  const instruments = await getInstruments();
+  const instruments = await getInstruments(); // <- asta e lista
+
   return (
     <section className="space-y-6 px-6 lg:px-20">
-      <h1 className="text-2xl md:text-3xl font-semibold">Instrumente</h1>
-
-      <div className="grid gap-4 md:gap-6 md:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         {instruments.map((x) => (
-          <div key={x.name} className="card p-4 md:p-5 rounded-2xl">
-            <div className="flex items-center justify-between">
-              <h3 className="text-lg font-semibold">
-                {x.rank}. {x.name}
-              </h3>
+          <div key={`${x.rank}-${x.name}`} className="card p-5 rounded-2xl">
+            <div className="flex items-center justify-between gap-3">
+              <h3 className="text-lg font-semibold">{x.name}</h3>
+              {x.rank != null && <span className="text-sm opacity-70">#{x.rank}</span>}
             </div>
 
-            {x.description ? (
-              <p className="muted mt-1">{x.description}</p>
-            ) : null}
+            {x.description && (
+              <p className="mt-2 text-sm opacity-80">{x.description}</p>
+            )}
 
-            <a
-              href={x.referralUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn mt-4 inline-flex"
-            >
-              Înregistrează-te
-            </a>
+            <div className="mt-3 flex flex-wrap gap-2">
+              {x.tags?.map((t) => (
+                <span key={t} className="badge">{t}</span>
+              ))}
+            </div>
+
+            <div className="mt-4">
+              <a
+                href={x.referralUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="btn btn-primary"
+              >
+                Deschide
+              </a>
+            </div>
           </div>
         ))}
       </div>
     </section>
   );
 }
+
+
+
 
