@@ -1,9 +1,12 @@
 
-import instrumentsData from "@/data/instruments.json";
+import fs from 'fs';
+import path from 'path';
 
 async function getInstruments() {
   // Încarcă din fișierul local
-  return instrumentsData as {
+  const filePath = path.join(process.cwd(), 'src/data/instruments.json');
+  const fileContent = fs.readFileSync(filePath, 'utf8');
+  return JSON.parse(fileContent) as {
     rank?: number;
     name: string;
     referralUrl: string;
