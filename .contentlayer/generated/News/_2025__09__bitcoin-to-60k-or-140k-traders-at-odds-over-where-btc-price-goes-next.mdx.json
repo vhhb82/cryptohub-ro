@@ -1,0 +1,23 @@
+{
+  "title": "Bitcoin to $60K or $140K? Traders at odds over where BTC price goes next",
+  "date": "2025-09-27T00:00:00.000Z",
+  "tags": [
+    "btc\r"
+  ],
+  "cover": "https://images.cointelegraph.com/images/528_aHR0cHM6Ly9zMy5jb2ludGVsZWdyYXBoLmNvbS91cGxvYWRzLzIwMjQtMTEvMDE5MzY2ODgtYzEyNC03Mzc4LWJlMzUtNzllNmFhYTAwNDhm.jpg",
+  "source": "Cointelegraph.com News",
+  "externalUrl": "https://cointelegraph.com/news/bitcoin-60k-or-140k-traders-at-odds-where-btc-price-goes?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+  "body": {
+    "raw": "\r\nDespite numerous calls for higher BTC prices in October, Bitcoin would repeat history with a steep drop toward $60,000 first.\r\n",
+    "code": "var Component=(()=>{var u=Object.create;var n=Object.defineProperty;var l=Object.getOwnPropertyDescriptor;var h=Object.getOwnPropertyNames;var g=Object.getPrototypeOf,_=Object.prototype.hasOwnProperty;var M=(t,e)=>()=>(e||t((e={exports:{}}).exports,e),e.exports),w=(t,e)=>{for(var r in e)n(t,r,{get:e[r],enumerable:!0})},i=(t,e,r,c)=>{if(e&&typeof e==\"object\"||typeof e==\"function\")for(let o of h(e))!_.call(t,o)&&o!==r&&n(t,o,{get:()=>e[o],enumerable:!(c=l(e,o))||c.enumerable});return t};var x=(t,e,r)=>(r=t!=null?u(g(t)):{},i(e||!t||!t.__esModule?n(r,\"default\",{value:t,enumerable:!0}):r,t)),f=t=>i(n({},\"__esModule\",{value:!0}),t);var m=M((y,a)=>{a.exports=_jsx_runtime});var b={};w(b,{default:()=>d,frontmatter:()=>z});var s=x(m()),z={title:\"Bitcoin to $60K or $140K? Traders at odds over where BTC price goes next\",date:\"2025-09-27\",source:\"Cointelegraph.com News\",externalUrl:\"https://cointelegraph.com/news/bitcoin-60k-or-140k-traders-at-odds-where-btc-price-goes?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound\",cover:\"https://images.cointelegraph.com/images/528_aHR0cHM6Ly9zMy5jb2ludGVsZWdyYXBoLmNvbS91cGxvYWRzLzIwMjQtMTEvMDE5MzY2ODgtYzEyNC03Mzc4LWJlMzUtNzllNmFhYTAwNDhm.jpg\",tags:[\"btc\"]};function p(t){let e={p:\"p\",...t.components};return(0,s.jsx)(e.p,{children:\"Despite numerous calls for higher BTC prices in October, Bitcoin would repeat history with a steep drop toward $60,000 first.\"})}function d(t={}){let{wrapper:e}=t.components||{};return e?(0,s.jsx)(e,{...t,children:(0,s.jsx)(p,{...t})}):p(t)}return f(b);})();\n;return Component;"
+  },
+  "_id": "2025/09/bitcoin-to-60k-or-140k-traders-at-odds-over-where-btc-price-goes-next.mdx",
+  "_raw": {
+    "sourceFilePath": "2025/09/bitcoin-to-60k-or-140k-traders-at-odds-over-where-btc-price-goes-next.mdx",
+    "sourceFileName": "bitcoin-to-60k-or-140k-traders-at-odds-over-where-btc-price-goes-next.mdx",
+    "sourceFileDir": "2025/09",
+    "contentType": "mdx",
+    "flattenedPath": "2025/09/bitcoin-to-60k-or-140k-traders-at-odds-over-where-btc-price-goes-next"
+  },
+  "type": "News"
+}

@@ -1,0 +1,23 @@
+{
+  "title": "Latam Insights: Venezuela Embraces USDT, OranjeBTC Rises in Brazil",
+  "date": "2025-09-28T00:00:00.000Z",
+  "tags": [
+    "btc\r"
+  ],
+  "cover": "https://static.news.bitcoin.com/wp-content/uploads/2025/09/latam-4.jpg",
+  "source": "Bitcoin News",
+  "externalUrl": "https://news.bitcoin.com/latam-insights-venezuela-embraces-usdt-oranjebtc-rises-in-brazil/",
+  "body": {
+    "raw": "\r\nWelcome to Latam Insights, a compilation of the most relevant crypto news from Latin America over the past week. In this week’s edition: Venezuela moves its internal disbursements to USDT, OranjeBTC surges as Latam’s largest bitcoin treasury company, and Argentina negotiates $20 \r\n",
+    "code": "var Component=(()=>{var p=Object.create;var a=Object.defineProperty;var d=Object.getOwnPropertyDescriptor;var h=Object.getOwnPropertyNames;var b=Object.getPrototypeOf,g=Object.prototype.hasOwnProperty;var w=(t,e)=>()=>(e||t((e={exports:{}}).exports,e),e.exports),x=(t,e)=>{for(var n in e)a(t,n,{get:e[n],enumerable:!0})},r=(t,e,n,i)=>{if(e&&typeof e==\"object\"||typeof e==\"function\")for(let s of h(e))!g.call(t,s)&&s!==n&&a(t,s,{get:()=>e[s],enumerable:!(i=d(e,s))||i.enumerable});return t};var f=(t,e,n)=>(n=t!=null?p(b(t)):{},r(e||!t||!t.__esModule?a(n,\"default\",{value:t,enumerable:!0}):n,t)),j=t=>r(a({},\"__esModule\",{value:!0}),t);var m=w((_,c)=>{c.exports=_jsx_runtime});var z={};x(z,{default:()=>u,frontmatter:()=>v});var o=f(m()),v={title:\"Latam Insights: Venezuela Embraces USDT, OranjeBTC Rises in Brazil\",date:\"2025-09-28\",source:\"Bitcoin News\",externalUrl:\"https://news.bitcoin.com/latam-insights-venezuela-embraces-usdt-oranjebtc-rises-in-brazil/\",cover:\"https://static.news.bitcoin.com/wp-content/uploads/2025/09/latam-4.jpg\",tags:[\"btc\"]};function l(t){let e={p:\"p\",...t.components};return(0,o.jsx)(e.p,{children:\"Welcome to Latam Insights, a compilation of the most relevant crypto news from Latin America over the past week. In this week\\u2019s edition: Venezuela moves its internal disbursements to USDT, OranjeBTC surges as Latam\\u2019s largest bitcoin treasury company, and Argentina negotiates $20\"})}function u(t={}){let{wrapper:e}=t.components||{};return e?(0,o.jsx)(e,{...t,children:(0,o.jsx)(l,{...t})}):l(t)}return j(z);})();\n;return Component;"
+  },
+  "_id": "2025/09/latam-insights-venezuela-embraces-usdt-oranjebtc-rises-in-brazil.mdx",
+  "_raw": {
+    "sourceFilePath": "2025/09/latam-insights-venezuela-embraces-usdt-oranjebtc-rises-in-brazil.mdx",
+    "sourceFileName": "latam-insights-venezuela-embraces-usdt-oranjebtc-rises-in-brazil.mdx",
+    "sourceFileDir": "2025/09",
+    "contentType": "mdx",
+    "flattenedPath": "2025/09/latam-insights-venezuela-embraces-usdt-oranjebtc-rises-in-brazil"
+  },
+  "type": "News"
+}

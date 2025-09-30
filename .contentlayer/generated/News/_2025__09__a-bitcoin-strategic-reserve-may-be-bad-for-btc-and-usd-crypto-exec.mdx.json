@@ -1,0 +1,23 @@
+{
+  "title": "A Bitcoin strategic reserve may be bad for BTC and USD — Crypto exec",
+  "date": "2025-09-28T00:00:00.000Z",
+  "tags": [
+    "btc\r"
+  ],
+  "cover": "https://images.cointelegraph.com/images/528_aHR0cHM6Ly9zMy5jb2ludGVsZWdyYXBoLmNvbS91cGxvYWRzLzIwMjUtMDcvMDE5ODI0YjQtMmU5Ny03OTA0LWI0MWMtYTRjZWVmNmRmMmU1.jpg",
+  "source": "Cointelegraph.com News",
+  "externalUrl": "https://cointelegraph.com/news/bitcoin-strategic-reserve-bad-btc-usd?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+  "body": {
+    "raw": "\r\nCreating a national Bitcoin reserve could prove disastrous for markets, as it would signal an immediate shift in the global financial order.\r\n",
+    "code": "var Component=(()=>{var l=Object.create;var o=Object.defineProperty;var p=Object.getOwnPropertyDescriptor;var g=Object.getOwnPropertyNames;var M=Object.getPrototypeOf,_=Object.prototype.hasOwnProperty;var b=(t,e)=>()=>(e||t((e={exports:{}}).exports,e),e.exports),f=(t,e)=>{for(var n in e)o(t,n,{get:e[n],enumerable:!0})},i=(t,e,n,s)=>{if(e&&typeof e==\"object\"||typeof e==\"function\")for(let r of g(e))!_.call(t,r)&&r!==n&&o(t,r,{get:()=>e[r],enumerable:!(s=p(e,r))||s.enumerable});return t};var x=(t,e,n)=>(n=t!=null?l(M(t)):{},i(e||!t||!t.__esModule?o(n,\"default\",{value:t,enumerable:!0}):n,t)),h=t=>i(o({},\"__esModule\",{value:!0}),t);var m=b((C,c)=>{c.exports=_jsx_runtime});var v={};f(v,{default:()=>u,frontmatter:()=>j});var a=x(m()),j={title:\"A Bitcoin strategic reserve may be bad for BTC and USD \\u2014 Crypto exec\",date:\"2025-09-28\",source:\"Cointelegraph.com News\",externalUrl:\"https://cointelegraph.com/news/bitcoin-strategic-reserve-bad-btc-usd?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound\",cover:\"https://images.cointelegraph.com/images/528_aHR0cHM6Ly9zMy5jb2ludGVsZWdyYXBoLmNvbS91cGxvYWRzLzIwMjUtMDcvMDE5ODI0YjQtMmU5Ny03OTA0LWI0MWMtYTRjZWVmNmRmMmU1.jpg\",tags:[\"btc\"]};function d(t){let e={p:\"p\",...t.components};return(0,a.jsx)(e.p,{children:\"Creating a national Bitcoin reserve could prove disastrous for markets, as it would signal an immediate shift in the global financial order.\"})}function u(t={}){let{wrapper:e}=t.components||{};return e?(0,a.jsx)(e,{...t,children:(0,a.jsx)(d,{...t})}):d(t)}return h(v);})();\n;return Component;"
+  },
+  "_id": "2025/09/a-bitcoin-strategic-reserve-may-be-bad-for-btc-and-usd-crypto-exec.mdx",
+  "_raw": {
+    "sourceFilePath": "2025/09/a-bitcoin-strategic-reserve-may-be-bad-for-btc-and-usd-crypto-exec.mdx",
+    "sourceFileName": "a-bitcoin-strategic-reserve-may-be-bad-for-btc-and-usd-crypto-exec.mdx",
+    "sourceFileDir": "2025/09",
+    "contentType": "mdx",
+    "flattenedPath": "2025/09/a-bitcoin-strategic-reserve-may-be-bad-for-btc-and-usd-crypto-exec"
+  },
+  "type": "News"
+}
