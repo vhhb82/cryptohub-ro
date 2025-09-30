@@ -1,4 +1,4 @@
-// scripts/import-rss.ts
+﻿// scripts/import-rss.ts
 import { config as loadEnv } from "dotenv";
 loadEnv({ path: ".env.local" });
 
@@ -14,10 +14,14 @@ type Item = {
   pubDate?: string;
   contentSnippet?: string;
   enclosure?: { url?: string };
-  [key: string]: any;
+} & Record<string, unknown>;
+
+type RssFeed = {
+  title?: string;
+  items?: Item[];
 };
 
-// ---------- setări ----------
+// ---------- setari ----------
 const DEFAULT_FEEDS = [
   "https://www.coindesk.com/arc/outboundfeeds/rss/",
   "https://cointelegraph.com/rss",
@@ -68,15 +72,36 @@ function inferTags(title: string) {
 }
 
 // ---------- imagine din RSS/OG ----------
-function readMedia(obj: any): string | undefined {
-  const media =
-    obj?.["media:content"]?.["$"]?.url ||
-    obj?.["media:content"]?.url;
-  const thumb =
-    obj?.["media:thumbnail"]?.["$"]?.url ||
-    obj?.["media:thumbnail"]?.url;
-  return media || thumb;
+type MediaNode = {
+  $?: { url?: string };
+  url?: string;
+};
+
+type MediaContainer = Record<string, unknown> & {
+  "media:content"?: MediaNode | { $?: { url?: string }; url?: string };
+  "media:thumbnail"?: MediaNode | { $?: { url?: string }; url?: string };
+};
+
+function readMedia(obj?: MediaContainer): string | undefined {
+  if (!obj) return undefined;
+
+  const mediaContent = obj["media:content"];
+  if (mediaContent && typeof mediaContent === "object") {
+    const node = mediaContent as MediaNode;
+    if (node.$?.url) return node.$.url;
+    if (node.url) return node.url;
+  }
+
+  const mediaThumb = obj["media:thumbnail"];
+  if (mediaThumb && typeof mediaThumb === "object") {
+    const node = mediaThumb as MediaNode;
+    if (node.$?.url) return node.$.url;
+    if (node.url) return node.url;
+  }
+
+  return undefined;
 }
+
 async function fetchOgImage(url: string): Promise<string | undefined> {
   try {
     const res = await fetch(url, {
@@ -85,18 +110,19 @@ async function fetchOgImage(url: string): Promise<string | undefined> {
         Accept: "text/html,application/xhtml+xml",
       },
     });
+    if (!res.ok) return undefined;
     const html = await res.text();
-    const m =
+    const ogMatch =
       html.match(/<meta[^>]+property=["']og:image["'][^>]+content=["']([^"']+)["']/i) ||
       html.match(/<meta[^>]+name=["']twitter:image["'][^>]+content=["']([^"']+)["']/i);
-    return m?.[1];
+    return ogMatch?.[1];
   } catch {
     return undefined;
   }
 }
 
-// ---------- parser RSS (fără await la top) ----------
-const parser = new Parser({
+// ---------- parser RSS ----------
+const parser = new Parser<RssFeed, Item>({
   requestOptions: {
     headers: {
       "User-Agent": "Mozilla/5.0 (NewsBot; +https://example.com)",
@@ -109,7 +135,7 @@ const parser = new Parser({
 async function importFeed(url: string) {
   const feed = await parser.parseURL(url);
   const source = feed.title || new URL(url).hostname;
-  const items = (feed.items ?? []).slice(0, LIMIT) as Item[];
+  const items = (feed.items ?? []).slice(0, LIMIT);
 
   let created = 0;
 
@@ -125,35 +151,24 @@ async function importFeed(url: string) {
     const mm = String(d.getMonth() + 1).padStart(2, "0");
     const dd = String(d.getDate()).padStart(2, "0");
 
-    const slug = (slugify(title).slice(0, 100) || `stire-${yyyy}${mm}${dd}`);
+    const slug = slugify(title).slice(0, 100) || `stire-${yyyy}${mm}${dd}`;
     const dir = path.join(process.cwd(), "content", "news", String(yyyy), String(mm));
     ensureDir(dir);
 
     const file = path.join(dir, `${slug}.mdx`);
     if (fs.existsSync(file)) continue;
 
-    // COVER: enclosure -> media:* -> OG image
     let cover =
-      it?.enclosure?.url ||
-      readMedia(it);
+      it.enclosure?.url ||
+      readMedia(it as MediaContainer);
     if (!cover) {
       cover = await fetchOgImage(link);
     }
 
     const tags = inferTags(title);
-    const fm = `---
-title: "${title.replace(/"/g, '\\"')}"
-date: ${yyyy}-${mm}-${dd}
-source: "${String(source).replace(/"/g, '\\"')}"
-externalUrl: "${link}"
-${cover ? `cover: "${cover.replace(/"/g, '\\"')}"` : ""}
-${tags.length ? `tags:\n${tags.map((t) => `  - ${t}`).join("\n")}` : `tags: []`}
----
-`;
+    const fm = `---\ntitle: "${title.replace(/"/g, '\\"')}"\ndate: ${yyyy}-${mm}-${dd}\nsource: "${String(source).replace(/"/g, '\\"')}"\nexternalUrl: "${link}"\n${cover ? `cover: "${cover.replace(/"/g, '\\"')}"` : ""}\n${tags.length ? `tags:\n${tags.map((t) => `  - ${t}`).join("\n")}` : `tags: []`}\n---\n`;
 
-    const body = `${fm}
-${(it.contentSnippet || "").slice(0, 280)}
-`;
+    const body = `${fm}\n${(it.contentSnippet || "").slice(0, 280)}\n`;
     fs.writeFileSync(file, body, "utf8");
     console.log("Created:", path.relative(process.cwd(), file));
     created++;
@@ -162,20 +177,21 @@ ${(it.contentSnippet || "").slice(0, 280)}
   return created;
 }
 
-// ---------- main (fără top-level await) ----------
+// ---------- main ----------
 async function main() {
   let total = 0;
-  for (const f of FEEDS) {
+  for (const feedUrl of FEEDS) {
     try {
-      total += await importFeed(f);
-    } catch (e: any) {
-      console.warn("Feed failed:", f, "-", e?.message || e);
+      total += await importFeed(feedUrl);
+    } catch (error: unknown) {
+      const message = error instanceof Error ? error.message : String(error);
+      console.warn("Feed failed:", feedUrl, "-", message);
     }
   }
   console.log(`Done. ${total} articole noi.`);
 }
 
-main().catch((e) => {
-  console.error(e);
+main().catch((error: unknown) => {
+  console.error(error);
   process.exit(1);
 });

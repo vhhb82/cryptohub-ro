@@ -1,11 +1,76 @@
-﻿import { getNewsBySlug } from "@/lib/news";
+﻿import type { Metadata } from "next";
+import { getNewsBySlug } from "@/lib/news";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 
-type PageProps = {
-  params: Promise<{ slug: string[] }>;
+const SITE_URL = "https://cryptohub.ro";
+
+type PageParams = {
+  slug: string[];
 };
+
+type PageProps = {
+  params: Promise<PageParams>;
+};
+
+function createDescription(content: string): string {
+  const stripped = content.replace(/<[^>]+>/g, "").replace(/\s+/g, " ").trim();
+  return stripped.slice(0, 155);
+}
+
+function absoluteUrl(path: string | undefined): string | undefined {
+  if (!path) return undefined;
+  return path.startsWith("http") ? path : `${SITE_URL}${path}`;
+}
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const resolvedParams = await params;
+  const slug = resolvedParams.slug.join("/");
+  const item = await getNewsBySlug(slug);
+
+  if (!item) {
+    return {
+      title: "Știre indisponibilă",
+      description: "Articolul căutat nu a fost găsit pe CryptoHub Pro.",
+    };
+  }
+
+  const title = item.title || "Știre crypto";
+  const description = createDescription(item.content);
+  const canonical = `/stiri/${slug}`;
+  const cover = absoluteUrl(item.cover);
+
+  return {
+    title,
+    description,
+    alternates: {
+      canonical,
+    },
+    openGraph: {
+      type: "article",
+      title,
+      description,
+      url: canonical,
+      publishedTime: item.date,
+      authors: item.source ? [item.source] : undefined,
+      images: cover
+        ? [
+            {
+              url: cover,
+              alt: title,
+            },
+          ]
+        : undefined,
+    },
+    twitter: {
+      card: cover ? "summary_large_image" : "summary",
+      title,
+      description,
+      images: cover ? [cover] : undefined,
+    },
+  };
+}
 
 export default async function NewsPage({ params }: PageProps) {
   const resolvedParams = await params;
@@ -22,9 +87,42 @@ export default async function NewsPage({ params }: PageProps) {
       })
     : "";
 
+  const description = createDescription(item.content);
+  const cover = absoluteUrl(item.cover);
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "NewsArticle",
+    headline: item.title,
+    description,
+    datePublished: item.date,
+    dateModified: item.date,
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": `${SITE_URL}/stiri/${slug}`,
+    },
+    author: {
+      "@type": "Organization",
+      name: item.source || "CryptoHub Pro",
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "CryptoHub Pro",
+      logo: {
+        "@type": "ImageObject",
+        url: `${SITE_URL}/images/fundal.jpg`,
+      },
+    },
+    image: cover ? [cover] : undefined,
+  };
+
   return (
     <main className="container-site py-12">
       <article className="mx-auto max-w-3xl overflow-hidden rounded-2xl bg-white text-neutral-900 shadow-lg">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+
         {item.cover && (
           <div className="relative aspect-[16/9]">
             <Image
