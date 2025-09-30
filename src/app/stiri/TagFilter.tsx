@@ -10,10 +10,10 @@ export default function TagFilter({ allTags }: { allTags: string[] }) {
 
   // în TagFilter
   const buildHref = (nextTag: string | null) => {
-    const sp = new URLSearchParams(sp.toString());
-    if (nextTag) sp.set("tag", nextTag); else sp.delete("tag");
-    sp.delete("page"); // reset page
-    return `${pathname}?${sp.toString()}`;
+    const searchParams = new URLSearchParams(sp.toString());
+    if (nextTag) searchParams.set("tag", nextTag); else searchParams.delete("tag");
+    searchParams.delete("page"); // reset page
+    return `${pathname}?${searchParams.toString()}`;
   };
 
 

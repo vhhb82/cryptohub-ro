@@ -81,8 +81,8 @@ export default function AdminPage() {
       // opțional: reset
       // setTitle(""); setDate(""); setLink(""); setSource(""); setCover("");
       // setTagsText(""); setExcerpt(""); setContent("");
-    } catch (err: any) {
-      setError(err?.message || "Eroare necunoscută");
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : "Eroare necunoscută");
     } finally {
       setBusy(false);
     }

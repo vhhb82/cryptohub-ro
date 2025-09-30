@@ -84,9 +84,9 @@ ${body.content || ""}
     await fs.writeFile(filePath, mdx, "utf8");
 
     return NextResponse.json({ success: true, file: filePath });
-  } catch (e: any) {
+  } catch (e: unknown) {
     console.error("API ERROR:", e);
-    return NextResponse.json({ error: e?.message || "unknown error" }, { status: 500 });
+    return NextResponse.json({ error: e instanceof Error ? e.message : "unknown error" }, { status: 500 });
   }
 }
 

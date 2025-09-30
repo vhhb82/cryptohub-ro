@@ -9,13 +9,13 @@ const nextConfig = {
   // permite imaginile externe (cover) din sursele tale
   images: {
     remotePatterns: [
-      { protocol: "https", hostname: "**.coindesk.com" },
-      { protocol: "https", hostname: "**.cointelegraph.com" },
-      { protocol: "https", hostname: "**.decrypt.co" },
-      { protocol: "https", hostname: "**.news.bitcoin.com" },
-      { protocol: "https", hostname: "**.finbold.com" },
+      { protocol: "https" as const, hostname: "**.coindesk.com" },
+      { protocol: "https" as const, hostname: "**.cointelegraph.com" },
+      { protocol: "https" as const, hostname: "**.decrypt.co" },
+      { protocol: "https" as const, hostname: "**.news.bitcoin.com" },
+      { protocol: "https" as const, hostname: "**.finbold.com" },
       // adaugă aici alte domenii pe care le folosești la `cover`
-      // { protocol: "https", hostname: "**.exemplu.com" },
+      // { protocol: "https" as const, hostname: "**.exemplu.com" },
     ],
   },
 

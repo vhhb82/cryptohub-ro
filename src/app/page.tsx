@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function HomePage() {
   return (
     <section className="container-site pt-16">
@@ -13,8 +15,8 @@ export default function HomePage() {
         </p>
 
         <div className="flex items-center justify-center gap-3 pt-2">
-          <a href="/stiri" className="btn btn-primary">Vezi știrile</a>
-          <a href="/burse" className="btn">Top burse</a>
+          <Link href="/stiri" className="btn btn-primary">Vezi știrile</Link>
+          <Link href="/burse" className="btn">Top burse</Link>
         </div>
       </div>
     </section>
