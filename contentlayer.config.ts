@@ -25,3 +25,8 @@ export const News = defineDocumentType(() => ({
   },
 }));
 
+export default makeSource({
+  contentDirPath: "content",
+  documentTypes: [News],
+});
+

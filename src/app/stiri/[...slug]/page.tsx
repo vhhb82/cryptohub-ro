@@ -14,7 +14,7 @@ function findArticle(slugParts: string[]): News | undefined {
   const joined = slugParts.join("/"); // ex: "2025/09/test"
 
   // 1) potrivire după computed slug (fără "news/")
-  let item =
+  const item =
     allNews.find((n) => n.slug === joined || n.slugAsParams === joined) ??
     // 2) în caz că unele item-uri au doar flattenedPath, îl normalizăm:
     allNews.find(

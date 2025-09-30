@@ -1,4 +1,3 @@
-import instruments from "@/data/instruments.json";
 
 async function getInstruments() {
   const url = process.env.NEXT_PUBLIC_INSTRUMENTS_URL; // seteaz-o în .env și în Vercel
@@ -14,15 +13,6 @@ async function getInstruments() {
     tags?: string[];
     logo?: string;
   }[];
-}
-
-// 2) Pagina ca Server Component
-async function getInstruments() {
-  const url = process.env.NEXT_PUBLIC_INSTRUMENTS_URL;
-  if (!url) return [];
-  const res = await fetch(url, { next: { revalidate: 30 } });
-  if (!res.ok) return [];
-  return (await res.json()) as Instrument[];
 }
 
 export default async function InstrumentsPage() {

@@ -15,13 +15,14 @@ export type News = {
   type: 'News'
   title: string
   date: IsoDateTimeString
+  cover?: string | undefined
   source?: string | undefined
   externalUrl?: string | undefined
   tags?: string[] | undefined
-  cover?: string | undefined
-  /** MDX file body */
-  body: MDX
+  /** Markdown file body */
+  body: Markdown
   slug: string
+  slugAsParams: string
 }  
 
 /** Nested types */

@@ -4,7 +4,5 @@ import news__2025__09__aBitcoinStrategicReserveMayBeBadForBtcAndUsdCryptoExecMdx
 import news__2025__09__bitcoinTo_60kOr_140kTradersAtOddsOverWhereBtcPriceGoesNextMdx from './news__2025__09__bitcoin-to-60k-or-140k-traders-at-odds-over-where-btc-price-goes-next.mdx.json' assert { type: 'json' }
 import news__2025__09__hereSBitcoinPriceLevelsToWatchAsBtcActsAsStablecoinMdx from './news__2025__09__here-s-bitcoin-price-levels-to-watch-as-btc-acts-as-stablecoin.mdx.json' assert { type: 'json' }
 import news__2025__09__latamInsightsVenezuelaEmbracesUsdtOranjebtcRisesInBrazilMdx from './news__2025__09__latam-insights-venezuela-embraces-usdt-oranjebtc-rises-in-brazil.mdx.json' assert { type: 'json' }
-import news__2025__09__testMdx from './news__2025__09__test.mdx.json' assert { type: 'json' }
-import news__2025__09__textMdx from './news__2025__09__text.mdx.json' assert { type: 'json' }
 
-export const allNews = [news__2025__09__aBitcoinStrategicReserveMayBeBadForBtcAndUsdCryptoExecMdx, news__2025__09__bitcoinTo_60kOr_140kTradersAtOddsOverWhereBtcPriceGoesNextMdx, news__2025__09__hereSBitcoinPriceLevelsToWatchAsBtcActsAsStablecoinMdx, news__2025__09__latamInsightsVenezuelaEmbracesUsdtOranjebtcRisesInBrazilMdx, news__2025__09__testMdx, news__2025__09__textMdx]
+export const allNews = [news__2025__09__aBitcoinStrategicReserveMayBeBadForBtcAndUsdCryptoExecMdx, news__2025__09__bitcoinTo_60kOr_140kTradersAtOddsOverWhereBtcPriceGoesNextMdx, news__2025__09__hereSBitcoinPriceLevelsToWatchAsBtcActsAsStablecoinMdx, news__2025__09__latamInsightsVenezuelaEmbracesUsdtOranjebtcRisesInBrazilMdx]
