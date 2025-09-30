@@ -1,31 +1,16 @@
-import { allNews, type News } from "contentlayer/generated";
+import { getNewsBySlug } from "@/lib/news";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
-// Dacă ai componenta MDX pe care ți-am dat-o anterior, păstrează importul de mai jos.
-// Dacă nu o ai încă, poți șterge importul și fallback-ul de mai jos va afișa text simplu.
-import Mdx from "@/components/Mdx";
 
 type PageProps = {
-  params: { slug: string[] };
+  params: Promise<{ slug: string[] }>;
 };
 
-function findArticle(slugParts: string[]): News | undefined {
-  const joined = slugParts.join("/"); // ex: "2025/09/test"
-
-  // 1) potrivire după computed slug (fără "news/")
-  const item =
-    allNews.find((n) => n.slug === joined || n.slugAsParams === joined) ??
-    // 2) în caz că unele item-uri au doar flattenedPath, îl normalizăm:
-    allNews.find(
-      (n) => n._raw.flattenedPath.replace(/^news\//, "") === joined
-    );
-
-  return item;
-}
-
-export default function NewsPage({ params }: PageProps) {
-  const item = findArticle(params.slug);
+export default async function NewsPage({ params }: PageProps) {
+  const resolvedParams = await params;
+  const slug = resolvedParams.slug.join("/");
+  const item = await getNewsBySlug(slug);
 
   if (!item) return notFound();
 
@@ -91,19 +76,11 @@ export default function NewsPage({ params }: PageProps) {
       )}
 
       {/* Conținutul articolului */}
-      {item.body?.code ? (
-        // Dacă ai componenta <Mdx /> (client) din răspunsurile anterioare, asta va reda MDX-ul corect.
-        <article className="prose prose-invert max-w-none">
-          <Mdx code={item.body.code} />
-        </article>
-      ) : item.body?.raw ? (
-        // Fallback simplu dacă nu există body.code
-        <article className="whitespace-pre-wrap text-neutral-200 leading-relaxed">
-          {item.body.raw}
-        </article>
-      ) : (
-        <p className="text-neutral-400">Acest articol nu are conținut.</p>
-      )}
+      <article className="prose prose-invert max-w-none">
+        <div className="whitespace-pre-wrap text-neutral-200 leading-relaxed">
+          {item.content}
+        </div>
+      </article>
     </main>
   );
 }

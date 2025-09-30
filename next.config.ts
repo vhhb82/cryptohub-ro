@@ -1,5 +1,5 @@
 // next.config.ts
-import { withContentlayer } from "next-contentlayer";
+import createMDX from '@next/mdx'
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -18,6 +18,14 @@ const nextConfig = {
       // { protocol: "https", hostname: "**.exemplu.com" },
     ],
   },
+
+  // Configure `pageExtensions` to include MDX files
+  pageExtensions: ['js', 'jsx', 'mdx', 'ts', 'tsx'],
 };
 
-export default withContentlayer(nextConfig);
+const withMDX = createMDX({
+  // Add markdown plugins here, as desired
+})
+
+// Merge MDX config with Next.js config
+export default withMDX(nextConfig)

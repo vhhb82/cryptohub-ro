@@ -1,16 +1,12 @@
-import { type News } from "contentlayer/generated";
+import { type NewsItem } from "@/lib/news";
 import Link from "next/link";
 import Image from "next/image";
 
-function safeSlug(n: News) {
-  return (
-    n.slug ??
-    n.slugAsParams ??
-    n._raw.flattenedPath.replace(/^news\//, "")
-  );
+function safeSlug(n: NewsItem) {
+  return n.slug;
 }
 
-export default function NewsCard({ item }: { item: News }) {
+export default function NewsCard({ item }: { item: NewsItem }) {
   const href = `/stiri/${safeSlug(item)}`;
   const dateStr = item.date
     ? new Date(item.date).toLocaleDateString("ro-RO", {

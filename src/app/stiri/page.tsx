@@ -1,4 +1,4 @@
-import { allNews } from "contentlayer/generated";
+import { getAllNews } from "@/lib/news";
 import NewsCard from "@/components/news/NewsCard";
 
 export const revalidate = 60; // ISR
@@ -13,6 +13,7 @@ export default async function StiriPage({
   const perPage = Math.min(50, Math.max(1, Number(p?.perPage ?? 12)));
   const page = Math.max(1, Number(p?.page ?? 1));
 
+  const allNews = await getAllNews();
   const items = [...allNews].sort(
     (a, b) => +new Date(b.date) - +new Date(a.date)
   );
@@ -32,13 +33,6 @@ export default async function StiriPage({
         {pageItems.map((n) => (
           <NewsCard
             key={n._id} 
-            title={n.title}
-            date={n.date}
-            source={n.source}
-            tags={n.tags}
-            cover={n.cover}
-            href={n.externalUrl || `/stiri/${n.slug}`}
-            external={Boolean(n.externalUrl)}
             item={n}
           />
         ))}
