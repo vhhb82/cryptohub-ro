@@ -1,4 +1,4 @@
-import { type NewsItem } from "@/lib/news";
+﻿import { type NewsItem } from "@/lib/news";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -17,7 +17,7 @@ export default function NewsCard({ item }: { item: NewsItem }) {
     : "";
 
   return (
-    <article className="group relative overflow-hidden rounded-xl border border-white/10 bg-white/5">
+    <article className="group relative overflow-hidden rounded-xl border border-neutral-200 bg-white text-neutral-900 shadow-sm transition hover:shadow-md">
       {item.cover && (
         <div className="relative aspect-[16/9]">
           <Image
@@ -30,19 +30,19 @@ export default function NewsCard({ item }: { item: NewsItem }) {
         </div>
       )}
 
-      <div className="p-4 space-y-2">
-        <h3 className="text-lg font-semibold leading-snug">{item.title}</h3>
-        <p className="text-xs text-neutral-400">
+      <div className="space-y-3 p-4">
+        <h3 className="text-lg font-semibold leading-snug text-neutral-900">{item.title}</h3>
+        <p className="text-xs text-neutral-600">
           {dateStr}
-          {item.source ? ` · ${item.source}` : ""}
+          {item.source ? ` - ${item.source}` : ""}
         </p>
 
         {!!item.tags?.length && (
-          <div className="flex gap-2 flex-wrap">
+          <div className="flex flex-wrap gap-2">
             {item.tags.map((t) => (
               <span
                 key={t}
-                className="text-[11px] rounded-full px-2 py-0.5 bg-white/10 border border-white/15"
+                className="text-[11px] rounded-full border border-neutral-200 bg-neutral-100 px-2 py-0.5 text-neutral-600"
               >
                 {t}
               </span>

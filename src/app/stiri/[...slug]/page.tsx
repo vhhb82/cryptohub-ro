@@ -1,4 +1,4 @@
-import { getNewsBySlug } from "@/lib/news";
+﻿import { getNewsBySlug } from "@/lib/news";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
@@ -23,66 +23,65 @@ export default async function NewsPage({ params }: PageProps) {
     : "";
 
   return (
-    <main className="container-site pt-10 space-y-6">
-      <header className="space-y-2">
-        <h1 className="text-3xl md:text-4xl font-semibold leading-tight">
-          {item.title}
-        </h1>
-
-        <p className="text-sm text-neutral-400">
-          {dateStr}
-          {item.source ? ` · ${item.source}` : ""}
-          {item.externalUrl && (
-            <>
-              {" "}
-              ·{" "}
-              <a
-                className="underline"
-                href={item.externalUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Extern ↗
-              </a>
-            </>
-          )}
-        </p>
-
-        {!!item.tags?.length && (
-          <div className="mt-2 flex gap-2 flex-wrap">
-            {item.tags.map((t) => (
-              <Link
-                key={t}
-                href={`/stiri?tag=${encodeURIComponent(t)}`}
-                className="text-xs rounded-full px-2 py-0.5 bg-white/10 border border-white/15 hover:bg-white/15 transition"
-              >
-                {t}
-              </Link>
-            ))}
+    <main className="container-site py-12">
+      <article className="mx-auto max-w-3xl overflow-hidden rounded-2xl bg-white text-neutral-900 shadow-lg">
+        {item.cover && (
+          <div className="relative aspect-[16/9]">
+            <Image
+              src={item.cover}
+              alt={item.title || ""}
+              fill
+              className="object-cover"
+              priority
+            />
           </div>
         )}
-      </header>
 
-      {item.cover && (
-        <div className="relative aspect-[16/9] overflow-hidden rounded-xl border border-white/10">
-          <Image
-            src={item.cover}
-            alt={item.title || ""}
-            fill
-            className="object-cover"
-            priority
-          />
-        </div>
-      )}
+        <div className="space-y-8 p-8 sm:p-10">
+          <header className="space-y-4">
+            <p className="text-sm font-medium text-neutral-500">
+              {dateStr}
+              {item.source ? ` - ${item.source}` : ""}
+              {item.externalUrl && (
+                <>
+                  {" - "}
+                  <a
+                    className="underline hover:text-neutral-700"
+                    href={item.externalUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Extern
+                  </a>
+                </>
+              )}
+            </p>
+            <h1 className="text-3xl font-bold leading-tight sm:text-4xl">
+              {item.title}
+            </h1>
 
-      {/* Conținutul articolului */}
-      <article className="prose prose-invert max-w-none">
-        <div className="whitespace-pre-wrap text-neutral-200 leading-relaxed">
-          {item.content}
+            {!!item.tags?.length && (
+              <div className="flex flex-wrap gap-2">
+                {item.tags.map((t) => (
+                  <Link
+                    key={t}
+                    href={`/stiri?tag=${encodeURIComponent(t)}`}
+                    className="rounded-full border border-neutral-200 bg-neutral-50 px-3 py-1 text-xs font-medium text-neutral-600 hover:border-neutral-300"
+                  >
+                    {t}
+                  </Link>
+                ))}
+              </div>
+            )}
+          </header>
+
+          <section className="prose max-w-none text-neutral-800">
+            <div className="whitespace-pre-wrap leading-relaxed">
+              {item.content}
+            </div>
+          </section>
         </div>
       </article>
     </main>
   );
 }
-
-
