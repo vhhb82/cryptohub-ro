@@ -1,10 +1,9 @@
 
+import instrumentsData from "@/data/instruments.json";
+
 async function getInstruments() {
-  const url = process.env.NEXT_PUBLIC_INSTRUMENTS_URL; // seteaz-o în .env și în Vercel
-  if (!url) return [];
-  const res = await fetch(url, { next: { revalidate: 30 } }); // revalidare la 30s
-  if (!res.ok) return [];
-  return (await res.json()) as {
+  // Încarcă din fișierul local
+  return instrumentsData as {
     rank?: number;
     name: string;
     referralUrl: string;
