@@ -1,4 +1,4 @@
-﻿import type { Metadata } from "next";
+import type { Metadata } from "next";
 import { getNewsBySlug } from "@/lib/news";
 import { notFound } from "next/navigation";
 import Image from "next/image";
@@ -31,13 +31,13 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   if (!item) {
     return {
-      title: "Știre indisponibilă",
-      description: "Articolul căutat nu a fost găsit pe CryptoHub Pro.",
+      title: "Stire indisponibila",
+      description: "Articolul cautat nu a fost gasit pe CryptoHub Pro.",
     };
   }
 
-  const title = item.title || "Știre crypto";
-  const description = createDescription(item.content);
+  const title = item.title || "Stire crypto";
+  const description = createDescription(item.contentHtml || item.content);
   const canonical = `/stiri/${slug}`;
   const cover = absoluteUrl(item.cover);
 
@@ -87,7 +87,7 @@ export default async function NewsPage({ params }: PageProps) {
       })
     : "";
 
-  const description = createDescription(item.content);
+  const description = createDescription(item.contentHtml || item.content);
   const cover = absoluteUrl(item.cover);
   const jsonLd = {
     "@context": "https://schema.org",
@@ -174,9 +174,11 @@ export default async function NewsPage({ params }: PageProps) {
           </header>
 
           <section className="prose max-w-none text-neutral-800">
-            <div className="whitespace-pre-wrap leading-relaxed">
-              {item.content}
-            </div>
+            <div
+              dangerouslySetInnerHTML={{
+                __html: item.contentHtml || item.content,
+              }}
+            />
           </section>
         </div>
       </article>

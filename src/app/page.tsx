@@ -1,4 +1,5 @@
-﻿import Link from "next/link";
+import Link from "next/link";
+import CryptoPriceWidget from "@/components/market/CryptoPriceWidget";
 import { getAllNews } from "@/lib/news";
 import NewsCard from "@/components/news/NewsCard";
 
@@ -31,18 +32,22 @@ export default async function HomePage() {
 
   return (
     <div className="container-site space-y-16 pb-16 pt-16">
-      <section className="grid items-center gap-12 lg:grid-cols-[1.1fr_minmax(0,1fr)]">
-        <div className="space-y-8">
-          <p className="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-1 text-sm text-teal-200">
+      <section className="grid gap-8 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.1fr)_minmax(0,0.95fr)] items-start">
+        <div className="order-2 flex justify-center lg:order-1 lg:justify-start">
+          <CryptoPriceWidget />
+        </div>
+
+        <div className="order-1 space-y-6 text-center lg:order-2">
+          <p className="mx-auto inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-1 text-sm text-teal-200">
             Platforma crypto pentru Romania
           </p>
           <h1 className="text-4xl font-semibold tracking-tight sm:text-5xl lg:text-6xl">
             Informatii crypto credibile, structurate pentru decizii rapide.
           </h1>
-          <p className="max-w-xl text-lg text-neutral-200/90">
+          <p className="mx-auto max-w-xl text-lg text-neutral-200/90">
             CryptoHub Pro centralizeaza stirile, miscarile pietei si instrumentele esentiale ca tu sa poti reactiona fara zgomot. Totul intr-o experienta rapida, responsiva si gata de partajat cu echipa ta.
           </p>
-          <div className="flex flex-wrap gap-3">
+          <div className="flex flex-wrap justify-center gap-3">
             <Link href="/stiri" className="btn btn-primary">
               Vezi stirile de azi
             </Link>
@@ -55,7 +60,7 @@ export default async function HomePage() {
           </div>
         </div>
 
-        <div className="grid gap-4 rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur">
+        <div className="order-3 grid gap-4 rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur lg:order-3 lg:ml-auto">
           <div className="rounded-xl border border-white/10 bg-black/20 p-5">
             <p className="text-sm text-neutral-300">Actualizare flux</p>
             <p className="mt-2 text-3xl font-semibold text-teal-200">la fiecare 60 de minute</p>
@@ -102,7 +107,7 @@ export default async function HomePage() {
               </p>
             </div>
             <Link href="/stiri" className="text-sm font-medium text-teal-200 hover:text-teal-100">
-              Vezi toate stirile →
+              Vezi toate stirile ?
             </Link>
           </div>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -123,7 +128,7 @@ export default async function HomePage() {
               className="flex items-center justify-between gap-2 rounded-xl border border-white/10 bg-black/20 px-4 py-3 text-sm font-medium text-neutral-200 transition hover:border-teal-200/40 hover:text-white"
             >
               {link.label}
-              <span aria-hidden="true">→</span>
+              <span aria-hidden="true">?</span>
             </Link>
           ))}
         </div>
@@ -131,3 +136,11 @@ export default async function HomePage() {
     </div>
   );
 }
+
+
+
+
+
+
+
+
