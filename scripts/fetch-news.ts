@@ -5,7 +5,7 @@ import process from "node:process";
 import dotenv from "dotenv";
 
 import slugify from "@sindresorhus/slugify";
-import { Translator } from "deepl-node";
+import { Translator, type TargetLanguageCode } from "deepl-node";
 import he from "he";
 import matter from "gray-matter";
 import Parser from "rss-parser";
@@ -15,7 +15,7 @@ type CliOptions = {
   dryRun: boolean;
   limit: number;
   feeds: string[];
-  targetLang: string;
+  targetLang: TargetLanguageCode;
 };
 
 const DEFAULT_FEEDS = [
@@ -44,7 +44,7 @@ function parseArgs(): CliOptions {
     dryRun: args.includes("--dry-run"),
     limit: Number(process.env.NEWS_MAX_ITEMS ?? 12),
     feeds: process.env.NEWS_FEEDS ? process.env.NEWS_FEEDS.split(",").map((s) => s.trim()).filter(Boolean) : DEFAULT_FEEDS,
-    targetLang: process.env.NEWS_TARGET_LANG?.trim() || "ro",
+    targetLang: (process.env.NEWS_TARGET_LANG?.trim() as TargetLanguageCode) || ("ro" as TargetLanguageCode),
   };
 
   for (const arg of args) {
@@ -58,10 +58,10 @@ function parseArgs(): CliOptions {
     }
     if (arg.startsWith("--lang=")) {
       const lang = arg.split("=")[1];
-      if (lang) opts.targetLang = lang;
+      if (lang) opts.targetLang = lang as TargetLanguageCode;
     }
-  }
 
+  }
   if (!opts.feeds.length) {
     throw new Error("No feeds configured. Set NEWS_FEEDS or --feeds.");
   }
@@ -88,7 +88,7 @@ const chunkText = (text: string, max = 4500) => {
   return chunks;
 };
 
-async function translateText(text: string, targetLang: string): Promise<string> {
+async function translateText(text: string, targetLang: TargetLanguageCode): Promise<string> {
   if (!translator) return text;
   if (!text?.trim()) return text;
 
@@ -254,5 +254,8 @@ main().catch((error) => {
   console.error(error);
   process.exitCode = 1;
 });
+
+
+
 
 
