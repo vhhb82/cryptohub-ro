@@ -1,12 +1,21 @@
-﻿// src/app/layout.tsx
+// src/app/layout.tsx
 import "./globals.css";
 import type { Metadata } from "next";
 import Image from "next/image";
+import { Inter } from "next/font/google";
 import Navbar from "@/components/Navbar";
+
+const inter = Inter({
+  subsets: ["latin-ext"],
+  display: "swap",
+  preload: true,
+});
 
 const siteTitle = "CryptoHub Pro";
 const siteTagline = "Știri, burse și instrumente crypto pentru piața din România";
-const siteDescription = "Platformă românească cu informații crypto actualizate zilnic: știri filtrate, comparații între burse și instrumente utile pentru investitori.";
+const siteDescription =
+  "Platforma românească cu informații crypto actualizate zilnic: știri filtrate, comparații între burse și instrumente utile pentru investitori.";
+const defaultOgImage = "/images/fundal.jpg";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://cryptohub.ro"),
@@ -35,10 +44,10 @@ export const metadata: Metadata = {
     description: siteDescription,
     images: [
       {
-        url: "/images/fundal.jpg",
+        url: defaultOgImage,
         width: 1200,
         height: 630,
-        alt: "CryptoHub Pro - Știri și instrumente crypto",
+        alt: "CryptoHub Pro - știri și instrumente crypto",
       },
     ],
   },
@@ -50,8 +59,8 @@ export const metadata: Metadata = {
     description: siteDescription,
     images: [
       {
-        url: "/images/fundal.jpg",
-        alt: "CryptoHub Pro - Știri și instrumente crypto",
+        url: defaultOgImage,
+        alt: "CryptoHub Pro - știri și instrumente crypto",
       },
     ],
   },
@@ -61,6 +70,26 @@ export const metadata: Metadata = {
   category: "technology",
 };
 
+const jsonLdOrganization = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: siteTitle,
+  url: "https://cryptohub.ro",
+  logo: "https://cryptohub.ro/images/fundal.jpg",
+};
+
+const jsonLdWebsite = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: siteTitle,
+  url: "https://cryptohub.ro",
+  potentialAction: {
+    "@type": "SearchAction",
+    target: "https://cryptohub.ro/stiri?cauta={search_term_string}",
+    "query-input": "required name=search_term_string",
+  },
+};
+
 export default function RootLayout({
   children,
 }: {
@@ -68,14 +97,15 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ro">
-      <body className="min-h-screen text-white">
+      <body className={`${inter.className} min-h-screen bg-black text-white antialiased`}>
         {/* Fundal: imagine + overlay-uri */}
         <div className="fixed inset-0 -z-10">
           <Image
-            src="/images/fundal.jpg"
+            src={defaultOgImage}
             alt=""
             fill
             priority
+            quality={80}
             className="object-cover opacity-60"
           />
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(16,185,129,.18),transparent_65%)]" />
@@ -87,6 +117,11 @@ export default function RootLayout({
         </header>
 
         <main className="min-h-screen">{children}</main>
+
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify([jsonLdOrganization, jsonLdWebsite]) }}
+        />
       </body>
     </html>
   );

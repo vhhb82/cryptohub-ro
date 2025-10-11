@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
-import { getNewsBySlug } from "@/lib/news";
+import { getAllNews, getNewsBySlug } from "@/lib/news";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 
 const SITE_URL = "https://cryptohub.ro";
+
+export const revalidate = 60;
 
 type PageParams = {
   slug: string[];
@@ -72,6 +74,13 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   };
 }
 
+export async function generateStaticParams(): Promise<PageParams[]> {
+  const news = await getAllNews();
+  return news.map((item) => ({
+    slug: item.slug.split("/"),
+  }));
+}
+
 export default async function NewsPage({ params }: PageProps) {
   const resolvedParams = await params;
   const slug = resolvedParams.slug.join("/");
@@ -131,6 +140,7 @@ export default async function NewsPage({ params }: PageProps) {
               fill
               className="object-cover"
               priority
+              sizes="(min-width: 1024px) 768px, 100vw"
             />
           </div>
         )}

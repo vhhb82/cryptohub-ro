@@ -3,6 +3,8 @@ import path from "path";
 import matter from "gray-matter";
 import { remark } from "remark";
 import remarkHtml from "remark-html";
+import { unstable_cache } from "next/cache";
+import { cache } from "react";
 
 export interface NewsItem {
   _id: string;
@@ -28,7 +30,7 @@ function markdownToHtml(markdown: string): string {
   return remark().use(remarkHtml).processSync(markdown).toString().trim();
 }
 
-export async function getAllNews(): Promise<NewsItem[]> {
+async function readNewsFromDisk(): Promise<NewsItem[]> {
   if (!fs.existsSync(newsDir)) {
     return [];
   }
@@ -70,7 +72,20 @@ export async function getAllNews(): Promise<NewsItem[]> {
   );
 }
 
-export async function getNewsBySlug(slug: string): Promise<NewsItem | null> {
+const getAllNewsCached = unstable_cache(
+  readNewsFromDisk,
+  ["news-items"],
+  {
+    tags: ["news"],
+    revalidate: 60,
+  }
+);
+
+export async function getAllNews(): Promise<NewsItem[]> {
+  return getAllNewsCached();
+}
+
+export const getNewsBySlug = cache(async (slug: string): Promise<NewsItem | null> => {
   const newsItems = await getAllNews();
   return newsItems.find((item) => item.slug === slug) || null;
-}
+});
