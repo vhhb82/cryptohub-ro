@@ -104,8 +104,9 @@ export default function RootLayout({
             src={defaultOgImage}
             alt=""
             fill
-            priority
             quality={80}
+            loading="lazy"
+            sizes="100vw"
             className="object-cover opacity-60"
           />
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(16,185,129,.18),transparent_65%)]" />

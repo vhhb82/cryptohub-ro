@@ -139,8 +139,8 @@ export default async function NewsPage({ params }: PageProps) {
               alt={item.title || ""}
               fill
               className="object-cover"
-              priority
               sizes="(min-width: 1024px) 768px, 100vw"
+              loading="lazy"
             />
           </div>
         )}
